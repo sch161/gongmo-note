@@ -1,0 +1,13 @@
+node_modules/
+.env
+
+# 업로드 파일은 올리지 않고, 폴더 유지용 .gitkeep만 남긴다
+uploads/*/*
+!uploads/*/.gitkeep
+
+# OS / 에디터 파일
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
