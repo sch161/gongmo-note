@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>회원가입 · 공모노트</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body class="center">
+    <main class="card auth-card">
+        <h1>회원가입</h1>
+        <form id="form">
+            <label>이름 <input type="text" id="name" maxlength="50" required /></label>
+            <label>이메일 <input type="email" id="email" required /></label>
+            <label>비밀번호 (8자 이상) <input type="password" id="password" minlength="8" required /></label>
+            <label>비밀번호 확인 <input type="password" id="password2" required /></label>
+            <p id="msg" class="error"></p>
+            <button class="btn primary" type="submit">가입하기</button>
+        </form>
+        <p class="sub">이미 계정이 있나요? <a href="/login.html">로그인</a></p>
+    </main>
+    <script src="/js/common.js"></script>
+    <script src="/js/signup.js"></script>
+</body>
+
+</html>

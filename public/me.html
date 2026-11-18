@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>내 정보 · 공모노트</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+    <header id="header"></header>
+    <main class="page">
+        <h1>내 정보</h1>
+        <div class="two-col">
+            <section class="card">
+                <h2>내 정보 수정</h2>
+                <form id="edit-form">
+                    <label>이메일 (바꿀 수 없어요) <input type="email" id="email" disabled /></label>
+                    <label>이름 <input type="text" id="name" maxlength="50" required /></label>
+                    <p class="sub">비밀번호를 바꾸지 않으려면 아래 두 칸을 비워 두세요.</p>
+                    <label>새 비밀번호 <input type="password" id="new-password" minlength="8" placeholder="8자 이상" /></label>
+                    <label>새 비밀번호 확인 <input type="password" id="new-password2" /></label>
+                    <p id="edit-msg" class="error"></p>
+                    <button class="btn primary" type="submit">저장</button>
+                </form>
+            </section>
+
+            <section class="card danger">
+                <h2>회원 탈퇴</h2>
+                <p class="sub">탈퇴하면 내 공모전, 시상 내역, 제출 파일 기록이 모두 삭제돼요. 되돌릴 수 없어요.</p>
+                <form id="leave-form">
+                    <label>비밀번호 확인 <input type="password" id="leave-password" required /></label>
+                    <p id="leave-msg" class="error"></p>
+                    <button class="btn danger-btn" type="submit">회원 탈퇴</button>
+                </form>
+            </section>
+        </div>
+    </main>
+    <script src="/js/common.js"></script>
+    <script src="/js/me.js"></script>
+</body>
+
+</html>
