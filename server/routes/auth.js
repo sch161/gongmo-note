@@ -15,6 +15,9 @@ router.post('/signup', async (req, res) => {
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
         return res.status(400).json({ error: '이메일 형식이 올바르지 않아요' });
     }
+    if (email.length > 255) {
+        return res.status(400).json({ error: '이메일은 255자 이하로 입력해 주세요' });
+    }
     if (!password || password.length < 8) {
         return res.status(400).json({ error: '비밀번호는 8자 이상이어야 해요' });
     }

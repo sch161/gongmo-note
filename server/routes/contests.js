@@ -163,6 +163,8 @@ router.post('/', uploadPoster, handle(async (req, res) => {
     if (!b.title || !b.organizer || !b.apply_end) {
         return fail(400, '공모전명, 주최기관, 접수 마감일은 꼭 입력해 주세요');
     }
+    if (b.title.length > 200) return fail(400, '공모전명은 200자 이하로 입력해 주세요');
+    if (b.organizer.length > 100) return fail(400, '주최기관은 100자 이하로 입력해 주세요');
     const status = b.status || '관심';
     if (!STATUSES.includes(status)) return fail(400, '상태가 올바르지 않아요');
     if (b.apply_start && b.apply_start > b.apply_end) {
