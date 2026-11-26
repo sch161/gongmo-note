@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>공모전 상세 · 공모노트</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+    <header id="header"></header>
+    <main class="page">
+        <a href="/index.html" class="sub">‹ 공모전 목록</a>
+        <div class="title-row">
+            <div>
+                <h1 id="title"></h1>
+                <div class="btn-row"><span id="organizer" class="sub"></span><span id="fields" class="btn-row"></span>
+                </div>
+            </div>
+            <button id="delete-btn" class="btn danger-btn">공모전 삭제</button>
+        </div>
+
+        <div class="two-col">
+            <div class="col-left">
+                <section class="card" id="poster-card"></section>
+                <section class="card">
+                    <h2>일정</h2>
+                    <ul class="list" id="schedule"></ul>
+                </section>
+                <section class="card">
+                    <h2>시상 내역</h2>
+                    <ul class="list" id="prizes"></ul>
+                    <form id="prize-form" class="inline-form">
+                        <input id="prize-rank" placeholder="등급 (예: 대상)" maxlength="30" required />
+                        <input id="prize-amount" placeholder="상금(원)" inputmode="numeric" />
+                        <button class="btn" type="submit">+ 추가</button>
+                    </form>
+                    <p id="prize-msg" class="error"></p>
+                </section>
+            </div>
+
+            <div class="col-right">
+                <section class="card">
+                    <h2>내 지원 상태</h2>
+                    <div id="status-btns" class="btn-row"></div>
+                    <form onsubmit="return false">
+                        <label style="margin-top:16px">메모 <textarea id="memo" rows="4"
+                                placeholder="아이디어, 팀 구성, 준비할 것 등"></textarea></label>
+                    </form>
+                    <button id="save-btn" class="btn primary">상태·메모 저장</button>
+                    <span id="save-msg" class="sub"></span>
+                </section>
+                <section class="card">
+                    <h2>제출물</h2>
+                    <ul class="list" id="submissions"></ul>
+                </section>
+            </div>
+        </div>
+    </main>
+    <script src="/js/common.js"></script>
+    <script src="/js/detail.js"></script>
+</body>
+
+</html>

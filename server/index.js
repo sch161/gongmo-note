@@ -28,6 +28,9 @@ app.get('/api/health', async (req, res) => {
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/me', require('./routes/me'));
+app.use('/api/fields', require('./routes/fields'));
+app.use('/api/contests', require('./routes/contests'));
+app.use('/api', require('./routes/prizes'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

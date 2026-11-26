@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>공모전 등록 · 공모노트</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+    <header id="header"></header>
+    <main class="page">
+        <h1>공모전 등록</h1>
+        <form id="form" class="two-col">
+            <section class="card col-poster">
+                <h2>포스터 (선택)</h2>
+                <img id="preview" class="poster-img" alt="포스터 미리보기" hidden />
+                <input type="file" id="poster" accept="image/*" />
+            </section>
+
+            <section class="card">
+                <h2>공모전 정보</h2>
+                <div class="grid2">
+                    <label>공모전명 <input id="title" maxlength="200" required /></label>
+                    <label>주최기관 <input id="organizer" maxlength="100" required /></label>
+                </div>
+
+                <label>지원 상태
+                    <select id="status">
+                        <option>관심</option>
+                        <option>준비중</option>
+                        <option>제출완료</option>
+                        <option>수상</option>
+                    </select>
+                </label>
+
+                <div class="label">분야 (여러 개 선택)</div>
+                <div id="field-chips" class="btn-row" style="margin-bottom:14px"></div>
+
+                <div class="grid3">
+                    <label>접수 시작 (선택) <input type="date" id="apply_start" /></label>
+                    <label>접수 마감 (필수) <input type="date" id="apply_end" required /></label>
+                    <label>결과 발표 (선택) <input type="date" id="announce_date" /></label>
+                </div>
+
+                <div class="label">시상 내역</div>
+                <div id="prize-rows"></div>
+                <button type="button" id="add-prize" class="btn" style="margin:8px 0 14px">+ 시상 행 추가</button>
+
+                <label>메모 (선택) <textarea id="memo" rows="3"></textarea></label>
+
+                <p id="msg" class="error"></p>
+                <div class="btn-row end">
+                    <a href="/index.html" class="btn">취소</a>
+                    <button class="btn primary" type="submit">저장</button>
+                </div>
+            </section>
+        </form>
+    </main>
+    <script src="/js/common.js"></script>
+    <script src="/js/upload.js"></script>
+</body>
+
+</html>

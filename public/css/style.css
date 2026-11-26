@@ -159,3 +159,289 @@ form input:disabled {
   color: #b42318;
   border-color: #f0b4ae;
 }
+
+/* ---- 3·4단계 추가 ---- */
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.btn-row.end {
+  justify-content: flex-end;
+}
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 6px;
+}
+.strong {
+  font-weight: 700;
+}
+.urgent {
+  color: #b42318;
+}
+.grow {
+  flex: 1;
+}
+.right {
+  text-align: right;
+}
+.empty {
+  padding: 40px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.chip {
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid #c9d0dc;
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.chip.on {
+  background: #2f5bea;
+  border-color: #2f5bea;
+  color: #fff;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.s1 {
+  background: #e9ecf3;
+  color: #374151;
+}
+.s2 {
+  background: #ffe9bf;
+  color: #6b4200;
+}
+.s3 {
+  background: #dbe6ff;
+  color: #1a3c94;
+}
+.s4 {
+  background: #d5f0df;
+  color: #11502a;
+}
+.btn.on {
+  border-width: 2px;
+}
+
+/* 목록 */
+.filter {
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+  margin: 16px 0;
+  padding: 16px;
+}
+.filter label {
+  margin: 0;
+  flex: 1;
+}
+.table {
+  padding: 0;
+  margin-bottom: 24px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 72px 2.2fr 1.2fr 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 20px;
+  border-top: 1px solid #e2e6ee;
+}
+.row.head {
+  border-top: 0;
+  background: #f9fafc;
+  font-size: 13px;
+  color: #4b5563;
+  border-radius: 12px 12px 0 0;
+  padding: 14px 20px;
+}
+.title-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* 상세 */
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 12px 0 24px;
+}
+.title-row h1 {
+  margin-bottom: 8px;
+}
+.col-left {
+  width: 420px;
+}
+.col-right {
+  flex: 1;
+}
+.col-left .card,
+.col-right .card {
+  margin-bottom: 24px;
+}
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-top: 1px solid #e2e6ee;
+}
+.item:first-child {
+  border-top: 0;
+}
+.item input {
+  flex: 1;
+  height: 36px;
+  margin: 0;
+}
+.poster-img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+.pill-btn {
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid #c7d6fb;
+  border-radius: 999px;
+  background: #eef3ff;
+  color: #2f5bea;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.x-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #e2e6ee;
+  border-radius: 50%;
+  background: #fff;
+  color: #6b7280;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.x-btn:hover {
+  color: #b42318;
+  border-color: #f0b4ae;
+}
+.inline-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.inline-form input {
+  flex: 1;
+  height: 36px;
+  margin: 0;
+}
+.inline-form .btn {
+  height: 36px;
+}
+textarea,
+select {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 10px 12px;
+  border: 1px solid #c9d0dc;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 15px;
+}
+select {
+  height: 44px;
+  padding: 0 12px;
+}
+
+/* 등록 */
+.two-col .card.col-poster {
+  flex: none;
+  width: 320px;
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.grid3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.prize-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.prize-row input {
+  flex: 1;
+  margin: 0;
+  width: auto;
+}
+
+/* 목록 화면 검색창 (form 밖이라 따로 지정) */
+.filter label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #4b5563;
+}
+.filter input {
+  display: block;
+  width: 100%;
+  height: 44px;
+  margin-top: 4px;
+  padding: 0 12px;
+  border: 1px solid #c9d0dc;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 15px;
+}
+
+/* hidden 속성이 display:block에 덮여서 깨진 이미지가 보이던 문제 */
+.poster-img[hidden] {
+  display: none;
+}
+
+/* 파일 선택 칸 */
+form input[type="file"] {
+  height: auto;
+  padding: 14px;
+  border: 1px dashed #c9d0dc;
+  background: #f9fafc;
+  cursor: pointer;
+}
+form input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  padding: 8px 14px;
+  border: 1px solid #c9d0dc;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}

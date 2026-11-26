@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>공모전 목록 · 공모노트</title>
   <link rel="stylesheet" href="/css/style.css" />
 </head>
-
 <body>
   <header id="header"></header>
   <main class="page">
     <h1>공모전 목록</h1>
-    <p class="sub">목록은 3단계에서 만들어요.</p>
+    <p id="count" class="sub"></p>
+    <div class="card filter">
+      <label>공모전명 검색 <input type="search" id="q" placeholder="예: 아이디어 공모전" /></label>
+      <div>
+        <div class="label">분야</div>
+        <div id="field-chips" class="btn-row"></div>
+      </div>
+    </div>
+    <div class="card table" id="table"></div>
   </main>
   <script src="/js/common.js"></script>
-  <script>renderHeader('list');</script>
+  <script src="/js/index.js"></script>
 </body>
-
 </html>

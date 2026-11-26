@@ -65,3 +65,32 @@ function link(text, href, className) {
     a.href = href;
     return a;
 }
+
+// 지원 상태별 배지 색 (CSS의 s1~s4)
+const STATUS_CLASS = { 관심: 's1', 준비중: 's2', 제출완료: 's3', 수상: 's4' };
+
+function statusBadge(status) {
+    return el('span', 'badge ' + STATUS_CLASS[status], status);
+}
+
+// D-day 계산: 오늘 날짜와 마감일의 차이(일)
+function dday(dateStr) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const end = new Date(dateStr + 'T00:00:00');
+    const diff = Math.round((end - today) / 86400000);
+    if (diff < 0) return { text: '마감', urgent: false };
+    if (diff === 0) return { text: 'D-day', urgent: true };
+    return { text: 'D-' + diff, urgent: diff <= 3 };
+}
+
+function money(n) {
+    return n === null ? '상금 미입력' : Number(n).toLocaleString() + '원';
+}
+
+// 파일이 들어가는 요청은 JSON이 아니라 FormData로 보낸다
+async function apiForm(url, method, formData) {
+    const res = await fetch(url, { method, body: formData });
+    const data = await res.json().catch(() => ({}));
+    return { ok: res.ok, status: res.status, data };
+}
