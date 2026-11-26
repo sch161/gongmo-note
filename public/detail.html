@@ -52,7 +52,16 @@
                     <span id="save-msg" class="sub"></span>
                 </section>
                 <section class="card">
-                    <h2>제출물</h2>
+                    <div class="row-between">
+                        <h2 style="margin:0">제출물</h2>
+                        <button id="add-file-btn" class="btn" type="button">+ 파일 추가</button>
+                    </div>
+                    <form id="file-form" class="inline-form" hidden>
+                        <input type="file" id="file" required />
+                        <input id="file-note" placeholder="메모 (선택)" maxlength="200" />
+                        <button class="btn primary" type="submit">업로드</button>
+                    </form>
+                    <p id="file-msg" class="error"></p>
                     <ul class="list" id="submissions"></ul>
                 </section>
             </div>

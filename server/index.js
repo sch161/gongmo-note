@@ -31,6 +31,8 @@ app.use('/api/me', require('./routes/me'));
 app.use('/api/fields', require('./routes/fields'));
 app.use('/api/contests', require('./routes/contests'));
 app.use('/api', require('./routes/prizes'));
+app.use('/api', require('./routes/submissions'));
+app.use('/api/stats', require('./routes/stats'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

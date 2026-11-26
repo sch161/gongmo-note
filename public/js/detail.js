@@ -186,20 +186,100 @@ document.getElementById('save-btn').addEventListener('click', async () => {
     document.getElementById('save-msg').textContent = r.ok ? ' 저장했어요' : ' ' + r.data.error;
 });
 
-// ---------- 제출물 (지금은 목록만, 업로드·삭제는 5단계) ----------
+// ---------- 제출물 (업로드 / 다운로드 / 메모 수정 / 삭제) ----------
 function renderSubmissions() {
     const ul = document.getElementById('submissions');
+    ul.replaceChildren();
     if (contest.submissions.length === 0) {
         ul.appendChild(el('li', 'sub', '제출한 파일이 없어요.'));
         return;
     }
-    contest.submissions.forEach((s) => {
-        const li = el('li', 'item');
-        li.appendChild(el('span', 'badge s3', s.version));
-        const info = el('div', 'grow');
-        info.appendChild(el('div', 'strong', s.file_name));
-        info.appendChild(el('div', 'sub', '메모: ' + (s.note || '-') + ' · ' + s.submitted_at));
-        li.appendChild(info);
-        ul.appendChild(li);
-    });
+    // 서버가 최신 순으로 보내 주므로 첫 번째가 최신 버전
+    contest.submissions.forEach((s, i) => ul.appendChild(submissionRow(s, i === 0)));
 }
+
+async function reloadSubmissions() {
+    contest.submissions = (await fetchContest()).submissions;
+    renderSubmissions();
+}
+
+function submissionRow(s, isLatest) {
+    const li = el('li', 'item');
+    li.appendChild(el('span', 'badge s3', s.version + (isLatest ? ' 최신' : '')));
+
+    const info = el('div', 'grow');
+    const link = el('a', 'strong link', s.file_name); // 파일 이름을 누르면 다운로드
+    link.href = '/api/submissions/' + s.submission_id + '/download';
+    info.appendChild(link);
+    info.appendChild(el('div', 'sub', '메모: ' + (s.note || '-') + ' · ' + s.submitted_at));
+    li.appendChild(info);
+
+    const edit = el('button', 'pill-btn', '✎ 수정');
+    edit.type = 'button';
+    edit.addEventListener('click', () => li.replaceWith(submissionEditRow(s, isLatest)));
+    li.appendChild(edit);
+
+    const del = el('button', 'x-btn', '×');
+    del.type = 'button';
+    del.title = '삭제';
+    del.addEventListener('click', async () => {
+        if (!confirm('"' + s.file_name + '" 파일을 삭제할까요?')) return;
+        const r = await api('/api/submissions/' + s.submission_id, 'DELETE');
+        if (r.ok) reloadSubmissions();
+        else alert(r.data.error);
+    });
+    li.appendChild(del);
+    return li;
+}
+
+// 메모 수정 모드
+function submissionEditRow(s, isLatest) {
+    const li = el('li', 'item');
+    li.appendChild(el('span', 'badge s3', s.version));
+    const note = el('input');
+    note.value = s.note || '';
+    note.maxLength = 200;
+    note.placeholder = '메모';
+    li.appendChild(note);
+
+    const save = el('button', 'pill-btn', '저장');
+    save.type = 'button';
+    save.addEventListener('click', async () => {
+        const r = await api('/api/submissions/' + s.submission_id, 'PUT', { note: note.value });
+        if (r.ok) reloadSubmissions();
+        else alert(r.data.error);
+    });
+    li.appendChild(save);
+
+    const cancel = el('button', 'x-btn', '×');
+    cancel.type = 'button';
+    cancel.title = '취소';
+    cancel.addEventListener('click', () => li.replaceWith(submissionRow(s, isLatest)));
+    li.appendChild(cancel);
+    return li;
+}
+
+// 파일 추가 버튼 → 업로드 폼 열기
+document.getElementById('add-file-btn').addEventListener('click', () => {
+    const form = document.getElementById('file-form');
+    form.hidden = !form.hidden;
+});
+
+document.getElementById('file-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('file-msg');
+    msg.textContent = '';
+
+    const fd = new FormData();
+    fd.append('note', document.getElementById('file-note').value);
+    fd.append('file', document.getElementById('file').files[0]);
+
+    const r = await apiForm('/api/contests/' + id + '/submissions', 'POST', fd);
+    if (r.ok) {
+        e.target.reset();
+        e.target.hidden = true;
+        reloadSubmissions();
+    } else {
+        msg.textContent = r.data.error;
+    }
+});

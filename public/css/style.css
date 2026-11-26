@@ -445,3 +445,49 @@ form input[type="file"]::file-selector-button {
   font-weight: 500;
   cursor: pointer;
 }
+
+.inline-form[hidden] {
+  display: none;
+}
+.row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+a.link {
+  color: #2f5bea;
+  text-decoration: underline;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.tile .num {
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+.two-col .card.col-fields {
+  flex: none;
+  width: 380px;
+}
+.field-name {
+  width: 76px;
+  font-size: 14px;
+}
+.bar {
+  flex: 1;
+  height: 12px;
+  background: #e9ecf3;
+  border-radius: 6px;
+}
+.bar > span {
+  display: block;
+  height: 12px;
+  border-radius: 6px;
+  background: #2f5bea;
+}
