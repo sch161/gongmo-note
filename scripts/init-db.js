@@ -30,6 +30,18 @@ async function main() {
       await conn.query(sql);
       console.log(`${file} 실행 완료`);
     }
+    // seed.sql의 제출물(file_path)에 해당하는 샘플 파일을 uploads/submissions/ 로 복사한다.
+    // 폴더가 없으면 만들고, 이미 있는 파일은 덮어쓰지 않는다.
+    const srcDir = path.join(__dirname, '..', 'seed-files');
+    const destDir = path.join(__dirname, '..', 'uploads', 'submissions');
+    fs.mkdirSync(destDir, { recursive: true });
+    if (fs.existsSync(srcDir)) {
+      for (const name of fs.readdirSync(srcDir)) {
+        const dest = path.join(destDir, name);
+        if (!fs.existsSync(dest)) fs.copyFileSync(path.join(srcDir, name), dest);
+      }
+    }
+
     console.log('DB 초기화 끝');
   } finally {
     await conn.end();
