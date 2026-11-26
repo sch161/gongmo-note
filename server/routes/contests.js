@@ -6,6 +6,7 @@ const db = require('../db');
 const requireLogin = require('../middleware/auth');
 const handle = require('../middleware/handle');
 const { emptyToNull, parsePrize } = require('../validate');
+const { extractContestFromPoster } = require('../services/ai');
 
 const router = express.Router();
 router.use(requireLogin);
@@ -41,6 +42,23 @@ function uploadPoster(req, res, next) {
 
 function removeFile(filePath) {
     fs.unlink(filePath, () => { });
+}
+
+// AI 추출용 업로드: 파일을 디스크에 저장하지 않고 메모리에만 잠깐 둔다 (AI에게 보내고 버릴 것이므로)
+const memoryUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => cb(null, file.mimetype.startsWith('image/')),
+});
+
+function uploadForAi(req, res, next) {
+    memoryUpload.single('poster')(req, res, (err) => {
+        if (err) {
+            const msg = err.code === 'LIMIT_FILE_SIZE' ? '포스터 파일은 10MB 이하만 올릴 수 있어요' : '파일 업로드에 실패했어요';
+            return res.status(400).json({ error: msg });
+        }
+        next();
+    });
 }
 
 // 목록: 제목 검색(q), 분야 필터(field), 마감 임박순
@@ -110,6 +128,27 @@ router.get('/:id', handle(async (req, res) => {
     );
 
     res.json({ ...contest, fields, prizes, submissions });
+}));
+
+// 포스터 AI 추출: DB에는 저장하지 않고, 읽어 낸 내용만 돌려준다 (저장은 사용자가 확인한 뒤 등록 API로)
+router.post('/extract', uploadForAi, handle(async (req, res) => {
+    // 파일이 없으면 (이미지가 아니면 multer가 걸러서 없다) 안내
+    if (!req.file) {
+        return res.status(400).json({ error: '이미지 파일을 선택해 주세요 (jpg, png 등)' });
+    }
+
+    // AI가 고를 수 있는 분야 이름 목록을 DB에서 읽는다
+    const [fields] = await db.query('SELECT name FROM fields ORDER BY field_id');
+    const fieldNames = fields.map((f) => f.name);
+
+    try {
+        const data = await extractContestFromPoster(req.file.buffer, req.file.mimetype, fieldNames);
+        res.json(data);
+    } catch (err) {
+        console.error(err); // 원인은 터미널에서 확인
+        // AI가 실패해도 직접 입력할 수 있으므로 안내만 한다
+        res.status(502).json({ error: 'AI가 포스터를 읽지 못했어요. 직접 입력해 주세요.' });
+    }
 }));
 
 // 등록: contests → contest_fields → prizes를 한 트랜잭션으로 저장
