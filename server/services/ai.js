@@ -53,14 +53,15 @@ async function extractContestFromPoster(imageBuffer, mimetype, fieldNames) {
 
     // OpenAI에 요청한다. 이미지와 글을 함께 보내고, 답은 JSON 형식으로 받는다
     const response = await client.chat.completions.create({
-        model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+        model: process.env.OPENAI_MODEL || 'gpt-6.2-sol',
         response_format: { type: 'json_object' },
         messages: [
             {
                 role: 'user',
                 content: [
                     { type: 'text', text: prompt },
-                    { type: 'image_url', image_url: { url: imageUrl } },
+                    // detail: 'original' = 이미지를 줄이지 않고 원본 크기로 읽는다 (긴 포스터의 작은 글씨 인식용)
+                    { type: 'image_url', image_url: { url: imageUrl, detail: 'high' } },
                 ],
             },
         ],
